@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:body>
+        <ui:composition template="./template.xhtml">
+            <ui:define name="title">
+                Log In
+            </ui:define>
+            <ui:define name="main">
+                <h2>Login</h2> 
+                <h:outputText value="#{msgs.logged}" rendered="#{userBean.logged}"/>
+
+                <h:form prependId="false" rendered="#{!userBean.logged}">
+
+                    <div class="label">#{msgs.username}</div>
+                    <div class="value">
+                        <h:inputText id ="username" value="#{loginBean.username}" required="true"/>
+                    </div>
+
+                    <div class="label">#{msgs.password}</div>
+                    <div class="value">
+                        <h:inputSecret id ="pass" value="#{loginBean.password}" required="true" > 
+                            <f:validateLength minimum="8"/>
+                        </h:inputSecret>
+                    </div>
+
+                    <div class="label"></div>
+                    <div class="value">
+                        <h:commandButton styleClass="formbutton" action="#{loginBean.login}" value="Log in" />
+                    </div>    
+                    <div class="label error"><h:message for="pass" /></div>                
+                </h:form>
+                <h:outputText value="Incorrect Password" rendered="#{loginBean.errorPassword}"/>
+                <h:outputText value="Username does not exist! You must register!" rendered="#{loginBean.errorUserName}"/>
+                <h:outputText value="Error with the system!" rendered="#{loginBean.errorPassword}"/>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
